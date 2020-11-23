@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: cart-service
+
+server:
+  port: 9001
+
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:2001/eureka, http://localhost:2002/eureka
+
+#测试配置中心
+attr: 88888
+
+ribbon:
+  ConnectTimeout: 1000
+  ReadTimeout: 1000
+
+item-service:
+  ribbon:
+    ConnectTimeout: 500
+    ReadTimeout: 1000
+    MaxAutoRetriesNextServer: 2
+    MaxAutoRetries: 1
+
+feign:
+  hystrix:
+    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 500
+
+management:
+  endpoints:
+    web:
+      exposure:
+        #include: hystrix.stream - feign客户端可用     refresh - 配置中心可用,此处用*,表示都可用
+        include: "*"
+
+---
+spring:
+  profiles: cart1
+
+server:
+  port: 8001
+---
+spring:
+  profiles: cart2
+
+server:
+  port: 8002
