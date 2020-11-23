@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: item-service
+  rabbitmq:
+    host: 176.135.1.189
+    port: 5672
+    username: admin
+    password: admin
+#server:
+#  port: 8001
+
+#测试配置文件是否生效,本地为attr = 1000
+attr: 9999
+  
+eureka:
+  client:
+    service-url:
+      #defaultZone: http://eureka1:2001/eureka, http://eureka2:2002/eureka
+      defaultZone: http://localhost:2001/eureka, http://localhost:2002/eureka
+
+---
+spring:
+  profiles: item1
+  
+server:
+  port: 8001
+---
+spring:
+  profiles: item2
+
+server:
+  port: 8002
